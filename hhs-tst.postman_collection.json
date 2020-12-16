@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "57128a75-e304-4126-9943-e54b92c4a3bd",
+		"name": "hh",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test access-token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa835130-a447-4b5c-9e20-54d03a9a279f",
+						"exec": [
+							"pm.test(\"Test 1\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.hh.ru/me",
+					"protocol": "https",
+					"host": [
+						"api",
+						"hh",
+						"ru"
+					],
+					"path": [
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Базовые возможности",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c7b6181-3638-4c0b-ac38-7f088bb379eb",
+						"exec": [
+							"pm.test(\"Test 1\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Test 2\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test 3\", () => {\r",
+							"  pm.expect(jsonData).to.be.an(\"object\");\r",
+							"  pm.expect(jsonData.items).to.be.a(\"array\");\r",
+							"});\r",
+							"pm.test(\"Test 4\", () => {\r",
+							"    pm.expect(jsonData.items.length).to.be.above(0);\r",
+							"});\r",
+							"pm.test('Test 5', () => {\r",
+							"    _.each(jsonData.items, (item) => {\r",
+							"        pm.expect(item.name.toLowerCase(), item.snippet.requirement.toLowerCase(), item.snippet.responsibility.toLowerCase()).to.include('курьер')\r",
+							"    })\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.hh.ru/vacancies/?text=курьер",
+					"protocol": "https",
+					"host": [
+						"api",
+						"hh",
+						"ru"
+					],
+					"path": [
+						"vacancies",
+						""
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "курьер"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Поиск словосочетаний",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "505d4eb5-0de2-4996-8844-c4ef7a7a8538",
+						"exec": [
+							"pm.test(\"Test 1\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test 2\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test 3\", () => {\r",
+							"  pm.expect(jsonData).to.be.an(\"object\");\r",
+							"  pm.expect(jsonData.items).to.be.a(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test 4\", () => {\r",
+							"    pm.expect(jsonData.items.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test('Test 5', () => {\r",
+							"    const responseText = pm.response.text();\r",
+							"    const hasItemDetails = (responseText.includes('младший') || responseText.includes('специалист'));\r",
+							"\r",
+							"    pm.expect(hasItemDetails).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.hh.ru/vacancies/?text=\"младший специалист\"",
+					"protocol": "https",
+					"host": [
+						"api",
+						"hh",
+						"ru"
+					],
+					"path": [
+						"vacancies",
+						""
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "\"младший специалист\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Исключить слово",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11fefaa8-f9c6-4845-9eea-bcc26bc6d66d",
+						"exec": [
+							"pm.test(\"Test 1\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test 2\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test 3\", () => {\r",
+							"  pm.expect(jsonData).to.be.an(\"object\");\r",
+							"  pm.expect(jsonData.items).to.be.a(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test 4\", () => {\r",
+							"    pm.expect(jsonData.items.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test('Test 5', () => {\r",
+							"    const responseText = pm.response.text();\r",
+							"    const hasItemDetails = (!responseText.includes('младший'));\r",
+							"\r",
+							"    pm.expect(hasItemDetails).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.hh.ru/vacancies/?text=NOT младший",
+					"protocol": "https",
+					"host": [
+						"api",
+						"hh",
+						"ru"
+					],
+					"path": [
+						"vacancies",
+						""
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "NOT младший"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "JOIN9M0LTBRLMF0S1JBLA2VUSFHAPSJF63PGT89P96D6HGNNHALD7QL2PSTKUD8P",
+				"type": "string"
+			}
+		]
+	},
+	"protocolProfileBehavior": {}
+}
